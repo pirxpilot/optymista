@@ -1,0 +1,29 @@
+{
+  "name": "optymista",
+  "version": "0.0.0",
+  "description": "Argv parser. Like `optimist` but using node's `util.parseArgs`.",
+  "author": {
+    "name": "Damian Krzeminski",
+    "email": "pirxpilot@furkot.com",
+    "url": "https://pirxpilot.me"
+  },
+  "repository": "pirxpilot/optymista",
+  "license": "MIT",
+  "keywords": [
+    "optymista",
+    "argv",
+    "options",
+    "optimist",
+    "minimist"
+  ],
+  "devDependencies": {
+    "jshint": "~2"
+  },
+  "scripts": {
+    "test": "make check"
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ]
+}

@@ -1,0 +1,6 @@
+Test some things
+
+Options:
+  -n, --name <name>    Name of the thing [default: "boom"]
+  -p, --place <place>
+      --verbose        Print everything
