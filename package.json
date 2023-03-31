@@ -1,6 +1,6 @@
 {
   "name": "optymista",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Argv parser. Like `optimist` but using node's `util.parseArgs`.",
   "author": {
     "name": "Damian Krzeminski",
