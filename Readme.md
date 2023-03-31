@@ -16,8 +16,9 @@ $ npm install --save optymista
 
 ```js
 const { argv } = require('optymista')
+  .usage('noble-gas [options]')
   .boolean('verbose').describe('says everything')
-  .describe('name', 'name of the thing').short('N').default('argon');
+  .describe('name', 'name of the gas').short('N').default('argon');
 
 if (argv.verbose) {
   console.log('starting');
@@ -28,9 +29,29 @@ console.log('name:', argv.name);
 
 ## API
 
-Fluid API with `boolean()`, `string()`, `describe()`, `default()`, `multiple()`.
+Fluid API corresponding to [`util.parseArgs`][util-parse-args] options:
 
-`-h|--help` is automatically implemented.
+- `boolean()`, `string()` - set option type to `boolean` or `string` - `boolean` is the default
+- `default()` - sets option default value
+- `multiple()` - option can be provided multiple times and all values will be collected in an array
+- `short()` - provides a one letter alternative to longer POSIX style option
+- `option()` - can be used to directly provide one or more option properties
+
+Help is automatically generated based on the information provided through `usage` and `descibe`
+
+- `usage()` - one or more strings that will form help text header
+- `describe()` - option description
+- `showHelp()` - display the help text on standard output 
+
+`-h|--help` is automatically added to the list of options and treated as a request to show help text.
+
+In case of any parsing errors help and the message associated with thrown exception is displayed.
+
+Methods can be chained with option name used only in the first method:
+
+```js
+string('width').short('w').string('height').short('h')
+```
 
 ## License
 
@@ -46,4 +67,4 @@ MIT © [Damian Krzeminski](https://pirxpilot.me)
 [deps-url]: https://libraries.io/npm/optymista
 
 [util-parse-args]: https://nodejs.org/api/util.html#utilparseargsconfig
-[optimist]: https://img.shields.io/npm/v/optimist
+[optimist]: https://npmjs.org/package/optimist
