@@ -57,3 +57,33 @@ test('option', function () {
   assert.deepEqual(argv.name, ['argon', 'freon']);
   assert.ok(argv.flag);
 });
+
+test('specific version', function (t) {
+  t.mock.method(console, 'log');
+  t.mock.method(process, 'exit');
+  const { argv } = optymista(['--version']).version('1.2.7');
+  assert.ok(argv.version);
+
+  const { calls: cl } = console.log.mock;
+  assert.strictEqual(cl.length, 1);
+  assert.strictEqual(cl[0].arguments, ['1.2.7']);
+
+  const { calls: pe } = process.exit.mock;
+  assert.strictEqual(pe.length, 1);
+  assert.strictEqual(pe[0].arguments, 0);
+});
+
+test('unknown version', function (t) {
+  t.mock.method(console, 'log');
+  t.mock.method(process, 'exit');
+  const { argv } = optymista(['-V']).version();
+  assert.ok(argv.version);
+
+  const { calls: cl } = console.log.mock;
+  assert.strictEqual(cl.length, 1);
+  assert.strictEqual(cl[0].arguments, ['unknown']);
+
+  const { calls: pe } = process.exit.mock;
+  assert.strictEqual(pe.length, 1);
+  assert.strictEqual(pe[0].arguments, 0);
+});

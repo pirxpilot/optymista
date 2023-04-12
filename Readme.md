@@ -36,6 +36,8 @@ Fluid API corresponding to [`util.parseArgs`][util-parse-args] options:
 - `multiple()` - option can be provided multiple times and all values will be collected in an array
 - `short()` - provides a one letter alternative to longer POSIX style option
 - `option()` - can be used to directly provide one or more option properties
+- `version()` - implements `--version,-V` support - if no version is passed `optymista` will try to read
+  one from the `package.json` file
 
 Help is automatically generated based on the information provided through `usage` and `descibe`
 
