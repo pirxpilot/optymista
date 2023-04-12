@@ -15,6 +15,16 @@ test('no options', function () {
 });
 
 test('options', async function () {
+  const s = help([], {
+    name: { description: 'Name of the thing', short: 'n', type: 'string', default: 'boom' },
+    place: { short: 'p', type: 'string' },
+    verbose: { description: 'Print everything', type: 'boolean' }
+  });
+  const expected = await readFile(__dirname + '/fixtures/no-usage.txt', 'utf-8');
+  assert.equal(s, expected);
+});
+
+test('usage and options', async function () {
   const s = help(['Test some things'], {
     name: { description: 'Name of the thing', short: 'n', type: 'string', default: 'boom' },
     place: { short: 'p', type: 'string' },
