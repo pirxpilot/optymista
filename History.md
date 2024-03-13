@@ -1,4 +1,10 @@
 
+1.0.0 / 2024-03-13
+==================
+
+ * replace jshint with biome
+ * add support for specifying `strict` option
+
 0.1.0 / 2023-04-12
 ==================
 
