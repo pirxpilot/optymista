@@ -12,6 +12,12 @@ test('string', function () {
   assert.equal(argv.name, 'abc');
 });
 
+test('strict', function () {
+  const { argv } = optymista(['--name', 'abc']).strict(false);
+  assert.equal(argv.name, true);
+  assert.deepEqual(argv._, ['abc']);
+});
+
 test('describe', function () {
   const { argv } = optymista(['--name', 'freon'])
     .string('name').describe('name', 'set the name of a thing');
