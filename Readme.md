@@ -1,6 +1,5 @@
 [![NPM version][npm-image]][npm-url]
 [![Build Status][build-image]][build-url]
-[![Dependency Status][deps-image]][deps-url]
 
 # optymista
 
@@ -64,9 +63,6 @@ MIT © [Damian Krzeminski](https://pirxpilot.me)
 
 [build-url]: https://github.com/pirxpilot/optymista/actions/workflows/check.yaml
 [build-image]: https://img.shields.io/github/actions/workflow/status/pirxpilot/optymista/check.yaml?branch=main
-
-[deps-image]: https://img.shields.io/librariesio/release/npm/optymista
-[deps-url]: https://libraries.io/npm/optymista
 
 [util-parse-args]: https://nodejs.org/api/util.html#utilparseargsconfig
 [optimist]: https://npmjs.org/package/optimist
