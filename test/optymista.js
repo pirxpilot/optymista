@@ -1,92 +1,91 @@
-const assert = require('node:assert/strict');
 const test = require('node:test');
 const optymista = require('../lib/optymista');
 
-test('boolean', () => {
+test('boolean', t => {
   const { argv } = optymista(['--test']).boolean('test');
-  assert.ok(argv.test);
+  t.assert.ok(argv.test);
 });
 
-test('string', () => {
+test('string', t => {
   const { argv } = optymista(['--name', 'abc']).string('name');
-  assert.equal(argv.name, 'abc');
+  t.assert.equal(argv.name, 'abc');
 });
 
-test('strict', () => {
+test('strict', t => {
   const { argv } = optymista(['--name', 'abc']).strict(false);
-  assert.equal(argv.name, true);
-  assert.deepEqual(argv._, ['abc']);
+  t.assert.equal(argv.name, true);
+  t.assert.deepEqual(argv._, ['abc']);
 });
 
-test('describe', () => {
+test('describe', t => {
   const { argv } = optymista(['--name', 'freon']).string('name').describe('name', 'set the name of a thing');
-  assert.equal(argv.name, 'freon');
+  t.assert.equal(argv.name, 'freon');
 });
 
-test('describe', () => {
+test('describe', t => {
   const { argv } = optymista([]).string('name').default('argon');
-  assert.equal(argv.name, 'argon');
+  t.assert.equal(argv.name, 'argon');
 });
 
-test('short', () => {
+test('short', t => {
   const { argv } = optymista(['-n', 'argon']).string('name').short('n');
-  assert.equal(argv.name, 'argon');
+  t.assert.equal(argv.name, 'argon');
 });
 
-test('multiple', () => {
+test('multiple', t => {
   const { argv } = optymista(['--name', 'argon', '--name', 'freon']).string('name').multiple('name');
-  assert.deepEqual(argv.name, ['argon', 'freon']);
+  t.assert.deepEqual(argv.name, ['argon', 'freon']);
 });
 
-test('multiple with short', () => {
+test('multiple with short', t => {
   const { argv } = optymista(['-n', 'argon', '--name', 'freon']).string('name').short('n').multiple();
-  assert.deepEqual(argv.name, ['argon', 'freon']);
+  t.assert.deepEqual(argv.name, ['argon', 'freon']);
 });
 
-test('option', () => {
+test('option', t => {
   const { argv } = optymista(['-n', 'argon', '--name', 'freon']).option('name', {
     short: 'n',
     multiple: true,
     type: 'string'
   });
-  assert.deepEqual(argv.name, ['argon', 'freon']);
+  t.assert.deepEqual(argv.name, ['argon', 'freon']);
 });
 
-test('option', () => {
+test('option', t => {
   const { argv } = optymista(['-n', 'argon', '--name', 'freon']).option({
     name: { short: 'n', multiple: true, type: 'string' },
     flag: { type: 'boolean', default: true }
   });
-  assert.deepEqual(argv.name, ['argon', 'freon']);
-  assert.ok(argv.flag);
+  t.assert.deepEqual(argv.name, ['argon', 'freon']);
+  t.assert.ok(argv.flag);
 });
 
 test('specific version', t => {
   t.mock.method(console, 'log');
   t.mock.method(process, 'exit');
   const { argv } = optymista(['--version']).version('1.2.7');
-  assert.ok(argv.version);
+  t.assert.ok(argv.version);
 
   const { calls: cl } = console.log.mock;
-  assert.strictEqual(cl.length, 1);
-  assert.strictEqual(cl[0].arguments, ['1.2.7']);
+  t.assert.strictEqual(cl.length, 1);
+  t.assert.strictEqual(cl[0].arguments, ['1.2.7']);
 
   const { calls: pe } = process.exit.mock;
-  assert.strictEqual(pe.length, 1);
-  assert.strictEqual(pe[0].arguments, 0);
+  t.assert.strictEqual(pe.length, 1);
+  t.assert.strictEqual(pe[0].arguments, 0);
 });
 
 test('unknown version', t => {
   t.mock.method(console, 'log');
   t.mock.method(process, 'exit');
   const { argv } = optymista(['-V']).version();
-  assert.ok(argv.version);
+  t.assert.ok(argv.version);
 
   const { calls: cl } = console.log.mock;
-  assert.strictEqual(cl.length, 1);
-  assert.strictEqual(cl[0].arguments, ['unknown']);
+  t.assert.strictEqual(cl.length, 1);
+  t.assert.strictEqual(cl[0].arguments, ['unknown']);
 
   const { calls: pe } = process.exit.mock;
-  assert.strictEqual(pe.length, 1);
-  assert.strictEqual(pe[0].arguments, 0);
+  t.assert.strictEqual(pe.length, 1);
+  t.assert.strictEqual(pe[0].arguments, 0);
 });
