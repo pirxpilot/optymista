@@ -2,63 +2,57 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 const optymista = require('../lib/optymista');
 
-test('boolean', function () {
+test('boolean', () => {
   const { argv } = optymista(['--test']).boolean('test');
   assert.ok(argv.test);
 });
 
-test('string', function () {
+test('string', () => {
   const { argv } = optymista(['--name', 'abc']).string('name');
   assert.equal(argv.name, 'abc');
 });
 
-test('strict', function () {
+test('strict', () => {
   const { argv } = optymista(['--name', 'abc']).strict(false);
   assert.equal(argv.name, true);
   assert.deepEqual(argv._, ['abc']);
 });
 
-test('describe', function () {
-  const { argv } = optymista(['--name', 'freon'])
-    .string('name')
-    .describe('name', 'set the name of a thing');
+test('describe', () => {
+  const { argv } = optymista(['--name', 'freon']).string('name').describe('name', 'set the name of a thing');
   assert.equal(argv.name, 'freon');
 });
 
-test('describe', function () {
+test('describe', () => {
   const { argv } = optymista([]).string('name').default('argon');
   assert.equal(argv.name, 'argon');
 });
 
-test('short', function () {
+test('short', () => {
   const { argv } = optymista(['-n', 'argon']).string('name').short('n');
   assert.equal(argv.name, 'argon');
 });
 
-test('multiple', function () {
-  const { argv } = optymista(['--name', 'argon', '--name', 'freon'])
-    .string('name')
-    .multiple('name');
+test('multiple', () => {
+  const { argv } = optymista(['--name', 'argon', '--name', 'freon']).string('name').multiple('name');
   assert.deepEqual(argv.name, ['argon', 'freon']);
 });
 
-test('multiple with short', function () {
-  const { argv } = optymista(['-n', 'argon', '--name', 'freon'])
-    .string('name')
-    .short('n')
-    .multiple();
+test('multiple with short', () => {
+  const { argv } = optymista(['-n', 'argon', '--name', 'freon']).string('name').short('n').multiple();
   assert.deepEqual(argv.name, ['argon', 'freon']);
 });
 
-test('option', function () {
-  const { argv } = optymista(['-n', 'argon', '--name', 'freon']).option(
-    'name',
-    { short: 'n', multiple: true, type: 'string' }
-  );
+test('option', () => {
+  const { argv } = optymista(['-n', 'argon', '--name', 'freon']).option('name', {
+    short: 'n',
+    multiple: true,
+    type: 'string'
+  });
   assert.deepEqual(argv.name, ['argon', 'freon']);
 });
 
-test('option', function () {
+test('option', () => {
   const { argv } = optymista(['-n', 'argon', '--name', 'freon']).option({
     name: { short: 'n', multiple: true, type: 'string' },
     flag: { type: 'boolean', default: true }
@@ -67,7 +61,7 @@ test('option', function () {
   assert.ok(argv.flag);
 });
 
-test('specific version', function (t) {
+test('specific version', t => {
   t.mock.method(console, 'log');
   t.mock.method(process, 'exit');
   const { argv } = optymista(['--version']).version('1.2.7');
@@ -82,7 +76,7 @@ test('specific version', function (t) {
   assert.strictEqual(pe[0].arguments, 0);
 });
 
-test('unknown version', function (t) {
+test('unknown version', t => {
   t.mock.method(console, 'log');
   t.mock.method(process, 'exit');
   const { argv } = optymista(['-V']).version();

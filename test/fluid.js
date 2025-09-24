@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 const { fluid } = require('../lib/fluid');
 
-test('set should set value', function () {
+test('set should set value', () => {
   const f = fluid({ p: { a: 5 } });
   f.set('p', 'b', 7).set('p', 'a', 8);
   assert.deepEqual(f.data, {
@@ -10,7 +10,7 @@ test('set should set value', function () {
   });
 });
 
-test('soft should preserve existing value', function () {
+test('soft should preserve existing value', () => {
   const f = fluid({ p: { a: 'old' } });
   f.soft('p', 'b', 7).soft('p', 'a', 'new');
   assert.deepEqual(f.data, {
@@ -18,7 +18,7 @@ test('soft should preserve existing value', function () {
   });
 });
 
-test('set without key should reuse last key', function () {
+test('set without key should reuse last key', () => {
   const f = fluid({ p: { a: 5 } });
   f.set('p', 'b', 7).set(undefined, 'd', 8);
   assert.deepEqual(f.data, {
@@ -26,7 +26,7 @@ test('set without key should reuse last key', function () {
   });
 });
 
-test('many soft', function () {
+test('many soft', () => {
   const f = fluid({ p: { a: 5 } });
   f.soft('q', 'b', 7).soft('r', 'a', 8);
   assert.deepEqual(f.data, {
@@ -36,7 +36,7 @@ test('many soft', function () {
   });
 });
 
-test('setAll should update all keys', function () {
+test('setAll should update all keys', () => {
   const f = fluid({ p: { a: 5 } });
   f.setAll(['q', 'r'], 'b', 15);
   assert.deepEqual(f.data, {
@@ -46,7 +46,7 @@ test('setAll should update all keys', function () {
   });
 });
 
-test('setAll should overwrite existing values', function () {
+test('setAll should overwrite existing values', () => {
   const f = fluid({ p: { a: 5, d: 0 } });
   f.setAll(['p', 'q', 'r'], 'a', 15);
   assert.deepEqual(f.data, {

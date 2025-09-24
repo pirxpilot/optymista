@@ -2,12 +2,16 @@
   "name": "optymista",
   "version": "1.0.0",
   "description": "Argv parser. Like `optimist` but using node's `util.parseArgs`.",
+  "type": "commonjs",
   "author": {
     "name": "Damian Krzeminski",
     "email": "pirxpilot@furkot.com",
     "url": "https://pirxpilot.me"
   },
-  "repository": "pirxpilot/optymista",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirxpilot/optymista.git"
+  },
   "license": "MIT",
   "keywords": [
     "optymista",
@@ -17,7 +21,7 @@
     "minimist"
   ],
   "devDependencies": {
-    "@biomejs/biome": "^1.6.1"
+    "@biomejs/biome": "2.2.4"
   },
   "scripts": {
     "test": "make check"
@@ -25,6 +29,5 @@
   "files": [
     "index.js",
     "lib"
-  ],
-  "dependencies": {}
+  ]
 }
