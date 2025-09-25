@@ -1,4 +1,9 @@
 
+1.1.0 / 2025-09-25
+==================
+
+ * add `allowPositionals` and `allowNegative` methods
+
 1.0.0 / 2024-03-13
 ==================
 
