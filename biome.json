@@ -1,21 +1,35 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.6.0/schema.json",
-  "organizeImports": {
-    "enabled": false
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true
   },
   "formatter": {
     "enabled": true,
-    "indentWidth": 2,
-    "indentStyle": "space"
-  },
-  "files": {
-    "ignore": ["package.json"]
+    "useEditorconfig": true,
+    "lineWidth": 120
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "trailingComma": "none",
+      "trailingCommas": "none",
       "arrowParentheses": "asNeeded"
+    }
+  },
+  "json": {
+    "formatter": {
+      "expand": "always"
     }
   },
   "linter": {
@@ -23,21 +37,23 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "all": true
+        "noUndeclaredVariables": "error",
+        "noUnusedVariables": "error"
       },
       "complexity": {
-        "noForEach": "off",
-        "useLiteralKeys": "off",
-        "useArrowFunction": "off"
+        "noForEach": "off"
       },
       "style": {
-        "noParameterAssign": "off"
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useNumberNamespace": "error",
+        "useSingleVarDeclarator": "error"
       },
       "performance": {
         "noDelete": "off"
       },
       "suspicious": {
-        "noAssignInExpressions": "off"
+        "useIterableCallbackReturn": "off"
       }
     }
   }
